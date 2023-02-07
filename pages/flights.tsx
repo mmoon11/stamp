@@ -3,12 +3,10 @@ import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 
-export default function Home() {
-  const [value, setValue] = useState(0);
-
+export default function Flights() {
   const styles = {
     container: {
-      width: "100%",
+      width: "80%",
     },
     middle: {
       display: "flex",
@@ -18,7 +16,6 @@ export default function Home() {
     centerText: {
       color: "#557A95",
       fontSize: 80,
-      paddingLeft: "7%",
     },
     suitcases: {
       maxWidth: 500,
@@ -35,18 +32,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div style={styles.middle}>
-        <p style={styles.centerText}>
-          Plan your next trip <br />
-          All in one
-        </p>
-        <Image
-          src="/suitcases.png"
-          width={641}
-          height={813}
-          style={styles.suitcases}
-          alt=""
-        />
+      <div style={styles.container}>
+        <p style={styles.centerText}>Flights</p>
       </div>
     </>
   );
