@@ -1,5 +1,4 @@
 import ItemCard from "./ItemCard";
-import { List, ListItem } from "@mui/material";
 import { SetStateAction } from "react";
 
 type InputProps = {
@@ -19,7 +18,6 @@ export default function DisplayEateries({
   const styles = {
     container: {
       display: "flex",
-      width: "100%",
       justifyContent: "center",
     },
     listContainer: {

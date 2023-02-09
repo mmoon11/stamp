@@ -1,15 +1,24 @@
-import { Card, CardActionArea, CardContent, Chip, Rating } from "@mui/material";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Chip,
+  Rating,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon,
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
 export default function ItemCard({ result, setSearchTerm }: any) {
-  const status = result.is_closed === false ? "Closed" : "Open";
+  const status = result.is_closed ? "Closed" : "Open";
 
   const styles = {
     img: {
-      width: 200,
-      height: 200,
-      objectFit: "cover",
-      borderTopLeftRadius: 7,
-      borderBottomLeftRadius: 7,
+      width: 250,
+      height: 250,
     },
     cardContainer: {
       display: "flex",
@@ -17,17 +26,17 @@ export default function ItemCard({ result, setSearchTerm }: any) {
     },
     textContainer: {
       paddingLeft: 20,
-      width: "55%",
     },
     title: {
       fontSize: 24,
       marginBottom: "2%",
       color: "black",
+      fontWeight: "bold",
     },
     ratingContainer: {
       display: "flex",
       alignItems: "center",
-      gap: "5%",
+      gap: "3%",
     },
     chipsContainer: {
       display: "flex",
@@ -36,62 +45,109 @@ export default function ItemCard({ result, setSearchTerm }: any) {
     closed: {
       color: "red",
       marginTop: "5%",
-      fontSize: 14,
+      fontSize: 18,
     },
     open: {
-      color: "dark green",
-      marginTop: "3%",
-      fontSize: 14,
+      color: "green",
+      marginTop: "5%",
+      fontSize: 18,
+    },
+    phone: {
+      marginTop: "5%",
     },
   };
 
-  const statusStyle = result.is_closed === false ? styles.closed : styles.open;
+  const statusStyle = result.is_closed ? styles.closed : styles.open;
   const outdoor = result.transactions.includes("outdoorseating");
+
+  const actions = [
+    {
+      name: "Save to itinerary",
+      icon: <AddIcon />,
+    },
+    { name: "Save for later", icon: <BookmarkBorderIcon /> },
+  ];
 
   return (
     <Card
-      sx={{ width: "47%", marginBottom: "3%", borderRadius: 2, boxShadow: 5 }}
+      sx={{ width: "45%", marginBottom: "3%", borderRadius: 4, boxShadow: 5 }}
     >
       <CardActionArea>
-        <CardContent>
+        <CardContent style={{ padding: 0 }}>
           <div style={styles.cardContainer}>
-            <img src={result.image_url} alt="" style={styles.img} />
+            <CardMedia
+              component="img"
+              image={result.image_url}
+              alt=""
+              style={styles.img}
+            />
+
             <div style={styles.textContainer}>
+              <p style={{ marginBottom: "2%" }}>
+                {result.location.city}, {result.location.state}
+              </p>
               <p style={styles.title}>{result.name}</p>
               <div style={styles.ratingContainer}>
                 <Rating value={result.rating} readOnly />
                 <p style={{ color: "black" }}>({result.review_count})</p>
-              </div>
-              <div style={styles.chipsContainer}>
-                <ul
+                <p
                   style={{
-                    width: "60%",
+                    marginLeft: "3%",
+                    color: "black",
+                    fontSize: 14,
+                    backgroundColor: "#ebebeb",
+                    padding: 5,
+                    borderRadius: 20,
                   }}
                 >
-                  {result.categories.map((category, index) => (
-                    <Chip
-                      key={index}
-                      label={category.title}
-                      size="small"
-                      style={{
-                        fontSize: 12,
-                        fontFamily: "Optima, serif",
-                        marginRight: "2%",
-                        marginTop: "2%",
-                      }}
-                      onClick={() => {
-                        setSearchTerm(category.title);
-                      }}
-                    />
-                  ))}
-                </ul>
-                <p style={{ marginLeft: "3%", color: "black", fontSize: 16 }}>
                   {result.price}
                 </p>
               </div>
+              <ul style={{ marginTop: "2%" }}>
+                {result.categories.map((category, index) => (
+                  <Chip
+                    key={index}
+                    label={category.title}
+                    size="small"
+                    style={{
+                      fontSize: 12,
+                      fontFamily: "Optima, serif",
+                      marginRight: "2%",
+                      marginTop: "2%",
+                    }}
+                    onClick={() => {
+                      setSearchTerm(category.title);
+                    }}
+                  />
+                ))}
+              </ul>
               <p style={statusStyle}>{status}</p>
+              <p style={styles.phone}>{result.phone}</p>
             </div>
           </div>
+          <SpeedDial
+            sx={{
+              position: "absolute",
+              bottom: 16,
+              right: 16,
+              "& .MuiFab-primary": {
+                width: 50,
+                height: 50,
+                backgroundColor: "#557A95",
+                color: "white",
+              },
+            }}
+            icon={<SpeedDialIcon />}
+            ariaLabel={""}
+          >
+            {actions.map((action) => (
+              <SpeedDialAction
+                key={action.name}
+                icon={action.icon}
+                tooltipTitle={action.name}
+              />
+            ))}
+          </SpeedDial>
         </CardContent>
       </CardActionArea>
     </Card>

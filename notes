@@ -1,0 +1,10 @@
+itineraries: {
+  paris: {
+    eateries: ["restaruant1", "restaurant2"];
+    sights: ["eiffel tower", "arc"];
+  }
+  korea: {
+    eateries: ["a", "b"];
+    sights: ["tower", "palace"];
+  }
+}
