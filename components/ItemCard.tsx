@@ -13,8 +13,18 @@ import AddIcon from "@mui/icons-material/Add";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
 export default function ItemCard({ result, setSearchTerm }: any) {
+  //set status of restaurant
   const status = result.is_closed ? "Closed" : "Open";
 
+  // add to itinerary button
+  const handleAddtoItinerary = function () {
+    console.log("add to itinerary!");
+  };
+
+  // save item button
+  const handleSave = function () {};
+
+  // styles
   const styles = {
     img: {
       width: 250,
@@ -57,15 +67,19 @@ export default function ItemCard({ result, setSearchTerm }: any) {
     },
   };
 
+  // set status style
   const statusStyle = result.is_closed ? styles.closed : styles.open;
-  const outdoor = result.transactions.includes("outdoorseating");
 
+  // actions for speed dial
   const actions = [
     {
       name: "Save to itinerary",
-      icon: <AddIcon />,
+      icon: <AddIcon onClick={handleAddtoItinerary} />,
     },
-    { name: "Save for later", icon: <BookmarkBorderIcon /> },
+    {
+      name: "Save for later",
+      icon: <BookmarkBorderIcon onClick={handleSave} />,
+    },
   ];
 
   return (
