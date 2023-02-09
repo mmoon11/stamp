@@ -1,26 +1,43 @@
 import Head from "next/head";
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
-import Image from "next/image";
-import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
-import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
-import FlightLandIcon from "@mui/icons-material/FlightLand";
-import { TextField, Box } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers-pro";
-import { AdapterMoment } from "@mui/x-date-pickers-pro/AdapterMoment";
-import { DesktopDateRangePicker } from "@mui/x-date-pickers-pro/DesktopDateRangePicker";
 import { DateRange } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { Moment } from "moment";
-import InputAdornment from "@mui/material/InputAdornment";
-import Button from "@mui/material/Button";
-import DateRangeIcon from "@mui/icons-material/DateRange";
-import PersonIcon from "@mui/icons-material/Person";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
+import FlightSearch from "@/components/FlightSearch";
 
 export default function Flights() {
-  const [value, setValue] = useState<DateRange<Moment>>([null, null]);
+  // should edit the options every time from, to, and date is changed
+  const [dates, setDates] = useState<DateRange<Moment>>([null, null]);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+
+  // want to send a new request every time the button is pressed
+  // this should be in the function that is put into the `onPress` function for the search button
+
+  const axios = require("axios");
+
+  const options = {
+    method: "GET",
+    url: "https://travelpayouts-travelpayouts-flight-data-v1.p.rapidapi.com/v1/prices/direct/",
+    params: { destination: "ICN", origin: "JFK" },
+    headers: {
+      "X-Access-Token": "cafa18ea26aba33fc3b03aa167ecb09c",
+      "X-RapidAPI-Key": "b16dada281mshcbcbf5d7a78053bp13b90ejsnb748d0659a0e",
+      "X-RapidAPI-Host":
+        "travelpayouts-travelpayouts-flight-data-v1.p.rapidapi.com",
+    },
+  };
+
+  // probably put this in the onPress
+  axios
+    .request(options)
+    .then(function (response) {
+      // set response.data to a variable that I can pull information from
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
 
   const styles = {
     width: {
@@ -28,9 +45,10 @@ export default function Flights() {
       justifyContent: "center",
     },
     container: {
-      width: "80%",
+      width: "90%",
       display: "flex",
       paddingTop: "3%",
+      justifyContent: "center",
     },
     middle: {
       display: "flex",
@@ -69,76 +87,14 @@ export default function Flights() {
       <Navbar />
       <div style={styles.width}>
         <div style={styles.container}>
-          <Paper
-            elevation={7}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: 20,
-              padding: "10px",
-              marginTop: "10%",
-            }}
-          >
-            <FlightTakeoffIcon style={{ margin: 10, color: "gray" }} />
-            <InputBase placeholder="From" style={styles.input}></InputBase>
-            <FlightLandIcon style={{ margin: 10, color: "gray" }} />
-            <InputBase placeholder="To" style={styles.input}></InputBase>
-            <DateRangeIcon style={{ margin: 10, color: "gray" }} />
-            <LocalizationProvider
-              dateAdapter={AdapterMoment}
-              localeText={{ start: "Depart", end: "Return" }}
-            >
-              <DesktopDateRangePicker
-                value={value}
-                onChange={(newValue) => {
-                  setValue(newValue);
-                }}
-                renderInput={(startProps, endProps) => (
-                  <React.Fragment>
-                    <TextField
-                      {...startProps}
-                      InputLabelProps={{ style: styles.dateInput }}
-                      variant="standard"
-                    />
-                    <Box sx={{ mx: 2 }}>
-                      <p style={styles.input}>-</p>
-                    </Box>
-                    <TextField
-                      {...endProps}
-                      InputLabelProps={{ style: styles.dateInput }}
-                      variant="standard"
-                    />
-                  </React.Fragment>
-                )}
-              />
-            </LocalizationProvider>
-            <PersonIcon style={{ margin: 10, color: "gray" }} />
-            <TextField
-              type="number"
-              defaultValue={1}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <p style={styles.dateInput}>Adults</p>
-                  </InputAdornment>
-                ),
-              }}
-              variant="standard"
-              label="Travelers"
-              sx={{ width: 100, paddingRight: "3%" }}
-              InputLabelProps={{ style: styles.dateInput }}
-            />
-            <IconButton
-              size="medium"
-              sx={{
-                backgroundColor: "#557A95",
-                color: "white",
-                marginRight: "1%",
-              }}
-            >
-              <SearchIcon fontSize="inherit" />
-            </IconButton>
-          </Paper>
+          <FlightSearch
+            dates={dates}
+            setDates={setDates}
+            from={from}
+            to={to}
+            setFrom={setFrom}
+            setTo={setTo}
+          />
         </div>
       </div>
     </>
