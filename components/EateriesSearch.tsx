@@ -125,18 +125,6 @@ export default function EateriesSearch({
       >
         Search
       </Button>
-
-      {/* <IconButton
-        size="medium"
-        sx={{
-          backgroundColor: "#557A95",
-          color: "white",
-          marginRight: "1%",
-        }}
-        onSubmit={onSubmit}
-      >
-        <SearchIcon fontSize="inherit" />
-      </IconButton> */}
     </Paper>
   );
 }

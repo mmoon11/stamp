@@ -1,13 +1,13 @@
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EateriesSearch from "@/components/EateriesSearch";
 import axios from "axios";
 import DisplayEateries from "@/components/DisplayEateries";
 
 export default function Eateries() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [location, setLocation] = useState("");
+  const [searchTerm, setSearchTerm] = useState("ramen");
+  const [location, setLocation] = useState("nyc");
   const [results, setResults] = useState([]);
   // add a sort by param!
 
@@ -23,7 +23,7 @@ export default function Eateries() {
           params: {
             term: searchTerm,
             location: location,
-            limit: 50,
+            limit: 20,
           },
         }
       )
@@ -35,6 +35,10 @@ export default function Eateries() {
         console.log("error");
       });
   };
+
+  useEffect(() => {
+    searchApi;
+  }, [searchApi, searchTerm]);
 
   const styles = {
     outerContainer: {
@@ -72,7 +76,11 @@ export default function Eateries() {
             setLocation={setLocation}
             onSubmit={searchApi}
           />
-          <DisplayEateries results={results} />
+          <DisplayEateries
+            results={results}
+            setSearchTerm={setSearchTerm}
+            searchApi={searchApi}
+          />
         </div>
       </div>
     </>
