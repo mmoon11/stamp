@@ -10,31 +10,23 @@ type NavLink = {
 
 const navData: NavLink[] = [
   {
-    name: "Flights",
-    path: "/flights",
-  },
-  {
-    name: "Hotels",
-    path: "/",
-  },
-  {
-    name: "Sightseeing",
-    path: "/",
-  },
-  {
     name: "Eateries",
-    path: "/",
+    path: "/eateries",
+  },
+  {
+    name: "Sights",
+    path: "/sights",
   },
   {
     name: "Itineraries",
-    path: "/",
+    path: "/itineraries",
   },
 ];
 
 const styles = {
   option: {
     fontFamily: "Optima",
-    margin: "5%",
+    margin: "12%",
     fontSize: 20,
     color: "#557A95",
   },
@@ -42,7 +34,14 @@ const styles = {
 
 const Navbar = () => {
   return (
-    <Box sx={{ display: "flex", marginTop: "2%", marginLeft: "2%" }}>
+    <Box
+      sx={{
+        display: "flex",
+        marginTop: "2%",
+        marginLeft: "2%",
+        marginBottom: "3%",
+      }}
+    >
       <nav>
         {navData.map(({ name, path }) => (
           <Link key={path} href={path} style={styles.option}>

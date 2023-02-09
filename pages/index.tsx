@@ -20,8 +20,8 @@ export default function Home() {
     },
     suitcases: {
       maxWidth: 500,
-      maxHeight: 640,
-      marginTop: 50,
+      objectFit: "contain",
+      maxHeight: 700,
     },
   };
   return (
@@ -39,7 +39,7 @@ export default function Home() {
           All in one
         </p>
         <Image
-          src="/suitcases.png"
+          src="/camera.png"
           width={641}
           height={813}
           style={styles.suitcases}

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import { DateRange } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { Moment } from "moment";
-import FlightSearch from "@/components/FlightSearch";
+import FlightSearch from "@/components/EateriesSearch";
 
 export default function Flights() {
   // should edit the options every time from, to, and date is changed
