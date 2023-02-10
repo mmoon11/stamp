@@ -33,8 +33,6 @@ export default function ItineraryCard({ itinerary }) {
     },
   };
 
-  console.log(itinerary);
-
   return (
     <Card
       sx={{
