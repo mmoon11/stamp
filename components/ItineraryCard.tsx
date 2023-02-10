@@ -4,6 +4,7 @@ import {
   CardContent,
   CardMedia,
   Chip,
+  Link,
   Rating,
   SpeedDial,
   SpeedDialAction,
@@ -16,8 +17,6 @@ export default function ItineraryCard({ itinerary }) {
     itinerary.dates.map((date: string) => dates.push(date));
   }
   itinerary.dates ? getDates() : null;
-
-  console.log(dates);
 
   const styles = {
     title: {
@@ -34,6 +33,8 @@ export default function ItineraryCard({ itinerary }) {
     },
   };
 
+  console.log(itinerary);
+
   return (
     <Card
       sx={{
@@ -41,9 +42,11 @@ export default function ItineraryCard({ itinerary }) {
         marginBottom: "3%",
         borderRadius: 4,
         boxShadow: 5,
-        backgroundImage: `linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(77, 80, 83, 1)), url(${itinerary.image})`,
+        backgroundImage: `linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(0, 0, 0, 0.8)), url(${itinerary.image})`,
+        backgroundPosition: "center",
         height: 276,
         backgroundSize: "cover",
+        marginTop: 5,
       }}
     >
       <CardActionArea>

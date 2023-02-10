@@ -11,18 +11,24 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import { useState } from "react";
+import AddToItinerary from "./AddToItinerary";
 
 export default function ItemCard({ result, setSearchTerm }: any) {
   //set status of restaurant
   const status = result.is_closed ? "Closed" : "Open";
 
-  // add to itinerary button
-  const handleAddtoItinerary = function () {
-    console.log("add to itinerary!");
-  };
+  const [open, setOpen] = useState(false);
 
-  // save item button
-  const handleSave = function () {};
+  // add button
+  const handleAdd = function (operation: string) {
+    if (operation === "itinerary") {
+      setOpen(true);
+      console.log(open);
+    } else if (operation === "save") {
+      console.log("just saved!");
+    }
+  };
 
   // styles
   const styles = {
@@ -74,96 +80,105 @@ export default function ItemCard({ result, setSearchTerm }: any) {
   const actions = [
     {
       name: "Save to itinerary",
-      icon: <AddIcon onClick={handleAddtoItinerary} />,
+      icon: <AddIcon />,
+      operation: "itinerary",
     },
     {
       name: "Save for later",
-      icon: <BookmarkBorderIcon onClick={handleSave} />,
+      icon: <BookmarkBorderIcon />,
+      operation: "save",
     },
   ];
 
   return (
-    <Card
-      sx={{ width: "45%", marginBottom: "3%", borderRadius: 4, boxShadow: 5 }}
-    >
-      <CardActionArea>
-        <CardContent style={{ padding: 0 }}>
-          <div style={styles.cardContainer}>
-            <CardMedia
-              component="img"
-              image={result.image_url}
-              alt=""
-              style={styles.img}
-            />
-
-            <div style={styles.textContainer}>
-              <p style={{ marginBottom: "2%" }}>
-                {result.location.city}, {result.location.state}
-              </p>
-              <p style={styles.title}>{result.name}</p>
-              <div style={styles.ratingContainer}>
-                <Rating value={result.rating} readOnly />
-                <p style={{ color: "black" }}>({result.review_count})</p>
-                <p
-                  style={{
-                    marginLeft: "3%",
-                    color: "black",
-                    fontSize: 14,
-                    backgroundColor: "#ebebeb",
-                    padding: 5,
-                    borderRadius: 20,
-                  }}
-                >
-                  {result.price}
-                </p>
-              </div>
-              <ul style={{ marginTop: "2%" }}>
-                {result.categories.map((category, index) => (
-                  <Chip
-                    key={index}
-                    label={category.title}
-                    size="small"
-                    style={{
-                      fontSize: 12,
-                      fontFamily: "Optima, serif",
-                      marginRight: "2%",
-                      marginTop: "2%",
-                    }}
-                    onClick={() => {
-                      setSearchTerm(category.title);
-                    }}
-                  />
-                ))}
-              </ul>
-              <p style={statusStyle}>{status}</p>
-              <p style={styles.phone}>{result.phone}</p>
-            </div>
-          </div>
-          <SpeedDial
-            sx={{
-              position: "absolute",
-              bottom: 16,
-              right: 16,
-              "& .MuiFab-primary": {
-                width: 50,
-                height: 50,
-                backgroundColor: "#557A95",
-                color: "white",
-              },
-            }}
-            icon={<SpeedDialIcon />}
-            ariaLabel={""}
-          >
-            {actions.map((action) => (
-              <SpeedDialAction
-                key={action.name}
-                icon={action.icon}
-                tooltipTitle={action.name}
+    <>
+      <Card
+        sx={{ width: "45%", marginBottom: "3%", borderRadius: 4, boxShadow: 5 }}
+      >
+        <CardActionArea>
+          <CardContent style={{ padding: 0 }}>
+            <div style={styles.cardContainer}>
+              <CardMedia
+                component="img"
+                image={result.image_url}
+                alt=""
+                style={styles.img}
               />
-            ))}
-          </SpeedDial>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+
+              <div style={styles.textContainer}>
+                <p style={{ marginBottom: "2%" }}>
+                  {result.location.city}, {result.location.state}
+                </p>
+                <p style={styles.title}>{result.name}</p>
+                <div style={styles.ratingContainer}>
+                  <Rating value={result.rating} readOnly />
+                  <p style={{ color: "black" }}>({result.review_count})</p>
+                  <p
+                    style={{
+                      marginLeft: "3%",
+                      color: "black",
+                      fontSize: 14,
+                      backgroundColor: "#ebebeb",
+                      padding: 5,
+                      borderRadius: 20,
+                    }}
+                  >
+                    {result.price}
+                  </p>
+                </div>
+                <ul style={{ marginTop: "2%" }}>
+                  {result.categories.map((category, index) => (
+                    <Chip
+                      key={index}
+                      label={category.title}
+                      size="small"
+                      style={{
+                        fontSize: 12,
+                        fontFamily: "Optima, serif",
+                        marginRight: "2%",
+                        marginTop: "2%",
+                      }}
+                      onClick={() => {
+                        setSearchTerm(category.title);
+                      }}
+                    />
+                  ))}
+                </ul>
+                <p style={statusStyle}>{status}</p>
+                <p style={styles.phone}>{result.phone}</p>
+              </div>
+            </div>
+            <SpeedDial
+              sx={{
+                position: "absolute",
+                bottom: 16,
+                right: 16,
+                "& .MuiFab-primary": {
+                  width: 50,
+                  height: 50,
+                  backgroundColor: "#557A95",
+                  color: "white",
+                },
+              }}
+              icon={<SpeedDialIcon />}
+              ariaLabel={""}
+            >
+              {actions.map((action) => (
+                <SpeedDialAction
+                  key={action.name}
+                  icon={action.icon}
+                  tooltipTitle={action.name}
+                  onClick={() => {
+                    handleAdd(action.operation);
+                  }}
+                />
+              ))}
+            </SpeedDial>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+
+      <AddToItinerary open={open} setOpen={setOpen} eatery={result} />
+    </>
   );
 }
