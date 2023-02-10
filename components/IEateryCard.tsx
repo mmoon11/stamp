@@ -11,14 +11,18 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { arrayRemove, collection, doc, updateDoc } from "firebase/firestore";
+import { db } from "../util/firebase";
 
-export default function IEateryCard({ eatery }: any) {
+export default function IEateryCard({ eatery, docToUpdate }: any) {
   console.log(eatery);
   //set status of restaurant
   const status = eatery.is_closed ? "Closed" : "Open";
 
   // delete button
-  const handleDelete = function () {};
+  const handleDelete = async function () {
+    await updateDoc(docToUpdate, { eateries: arrayRemove(eatery) });
+  };
 
   // styles
   const styles = {

@@ -94,6 +94,9 @@ export default function Itinerary() {
   const itinerariesCollectionRef = collection(db, "itineraries");
 
   const locationID = current.id ? current.id.toString() : null;
+  const docToUpdate = locationID
+    ? doc(itinerariesCollectionRef, locationID)
+    : null;
 
   const [eateries, setEateries] = useState<DocumentData>();
 
@@ -115,7 +118,7 @@ export default function Itinerary() {
 
   useEffect(() => {
     getEateries();
-  }, [current]);
+  }, [current, docToUpdate]);
 
   return (
     <>
@@ -174,7 +177,11 @@ export default function Itinerary() {
             >
               {eateries
                 ? eateries.map((eatery, index) => (
-                    <IEateryCard key={index} eatery={eatery} />
+                    <IEateryCard
+                      key={index}
+                      eatery={eatery}
+                      docToUpdate={docToUpdate}
+                    />
                   ))
                 : null}
             </div>
