@@ -1,8 +1,11 @@
+import { Itinerary } from "@/types/types";
 import Link from "next/link";
 import ItineraryCard from "./ItineraryCard";
 
 export default function DisplayItineraries({ itineraries }: any) {
   const ROUTE_POST_ID = "itineraries/[id]";
+
+  console.log(itineraries);
 
   const styles = {
     container: {
@@ -16,7 +19,7 @@ export default function DisplayItineraries({ itineraries }: any) {
 
   return (
     <div style={styles.container}>
-      {itineraries.map((itinerary: any, index: number) => (
+      {itineraries.map((itinerary: Itinerary, index: number) => (
         <Link
           key={index}
           href={{

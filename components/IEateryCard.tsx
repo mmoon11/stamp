@@ -11,12 +11,25 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { arrayRemove, collection, doc, updateDoc } from "firebase/firestore";
+import {
+  arrayRemove,
+  collection,
+  doc,
+  DocumentData,
+  updateDoc,
+  DocumentReference,
+} from "firebase/firestore";
 import { db } from "../util/firebase";
 import { useState } from "react";
 import DeleteEatery from "./DeleteEatery";
+import { Eatery } from "@/types/types";
 
-export default function IEateryCard({ eatery, docToUpdate }: any) {
+type InputProps = {
+  eatery: Eatery;
+  docToUpdate: DocumentReference<DocumentData> | null;
+};
+
+export default function IEateryCard({ eatery, docToUpdate }: InputProps) {
   //set status of restaurant
   const status = eatery.is_closed ? "Closed" : "Open";
 

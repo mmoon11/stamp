@@ -11,11 +11,16 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import AddToItinerary from "./AddToItinerary";
-import { Category } from "@/types/types";
+import { Category, Result } from "@/types/types";
 
-export default function ItemCard({ result, setSearchTerm }: any) {
+type InputProps = {
+  result: Result;
+  setSearchTerm: React.Dispatch<SetStateAction<string>>;
+};
+
+export default function ItemCard({ result, setSearchTerm }: InputProps) {
   //set status of restaurant
   const status = result.is_closed ? "Closed" : "Open";
 

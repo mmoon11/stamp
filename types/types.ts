@@ -27,17 +27,17 @@ export type OriginalEatery = {
 };
 
 export type Itinerary = {
-  dates: string[] | undefined | null;
-  eateries: OriginalEatery[] | undefined | null;
-  id: string | undefined | null;
-  image: string | undefined | null;
-  location: string | undefined | null;
-  sights: string[] | undefined | null;
+  dates: string[] | undefined;
+  eateries: OriginalEatery[];
+  id: string;
+  image: string;
+  location: string;
+  sights: string[];
 };
 
 export type obj = {
   location: string;
-  eateries: any;
+  eateries: OriginalEatery[];
   sights: string[];
   image: string;
   dates: string[] | undefined;
