@@ -5,6 +5,9 @@ import { db } from "../util/firebase";
 import { useEffect, useState } from "react";
 import DisplayItineraries from "@/components/DisplayItineraries";
 import { idList } from "@/types/types";
+import { Button } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import AddNewItinerary from "@/components/AddNewItinerary";
 
 export default function Itineraries() {
   const itinerariesCollectionRef = collection(db, "itineraries");
@@ -31,6 +34,16 @@ export default function Itineraries() {
     return unsubscribe;
   }, []);
 
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const styles = {
     outerContainer: {
       display: "flex",
@@ -46,6 +59,11 @@ export default function Itineraries() {
       fontSize: 40,
       width: "100%",
     },
+    top: {
+      display: "flex",
+      width: "100%",
+      justifyContent: "space-between",
+    },
   };
 
   return (
@@ -60,10 +78,30 @@ export default function Itineraries() {
 
       <div style={styles.outerContainer}>
         <div style={styles.container}>
-          <p style={styles.title}>Your Itineraries</p>
+          <div style={styles.top}>
+            <p style={styles.title}>Your Itineraries</p>
+            <Button
+              endIcon={<AddIcon style={{ color: "white" }} />}
+              onClick={handleClickOpen}
+              sx={{
+                width: "20%",
+                borderRadius: 50,
+                backgroundColor: "#557A95",
+              }}
+            >
+              <p style={{ color: "white" }}>Add New Itinerary</p>
+            </Button>
+          </div>
+
           <DisplayItineraries itineraries={itineraries} />
         </div>
       </div>
+
+      <AddNewItinerary
+        open={open}
+        setOpen={setOpen}
+        handleClose={handleClose}
+      />
     </>
   );
 }

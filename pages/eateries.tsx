@@ -28,7 +28,6 @@ export default function Eateries() {
         }
       )
       .then((res) => {
-        console.log(res.data.businesses);
         setResults(res.data.businesses);
       })
       .catch((err) => {
