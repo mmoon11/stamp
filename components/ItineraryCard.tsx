@@ -1,17 +1,7 @@
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Chip,
-  Link,
-  Rating,
-  SpeedDial,
-  SpeedDialAction,
-  SpeedDialIcon,
-} from "@mui/material";
+import { Itinerary } from "@/types/types";
+import { Card, CardActionArea, CardContent } from "@mui/material";
 
-export default function ItineraryCard({ itinerary }) {
+export default function ItineraryCard({ itinerary }: Itinerary) {
   const dates: string[] = [];
   function getDates() {
     itinerary.dates.map((date: string) => dates.push(date));
@@ -25,7 +15,7 @@ export default function ItineraryCard({ itinerary }) {
     },
     infoContainer: {
       display: "flex",
-      flexDirection: "column",
+      flexDirection: "column" as "column",
     },
     dates: {
       color: "white",

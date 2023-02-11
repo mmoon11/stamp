@@ -13,16 +13,26 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { arrayRemove, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../util/firebase";
+import { useState } from "react";
+import DeleteEatery from "./DeleteEatery";
 
 export default function IEateryCard({ eatery, docToUpdate }: any) {
-  console.log(eatery);
   //set status of restaurant
   const status = eatery.is_closed ? "Closed" : "Open";
+
+  const [open, setOpen] = useState(false);
+
+  const handleDeleteIcon = function () {
+    setOpen(true);
+  };
 
   // delete button
   const handleDelete = async function () {
     await updateDoc(docToUpdate, { eateries: arrayRemove(eatery) });
+    setAlertOpen(true);
   };
+
+  const [alertOpen, setAlertOpen] = useState(false);
 
   // styles
   const styles = {
@@ -85,56 +95,71 @@ export default function IEateryCard({ eatery, docToUpdate }: any) {
   ];
 
   return (
-    <Card
-      sx={{ width: "30%", marginBottom: "3%", borderRadius: 4, boxShadow: 5 }}
-    >
-      <CardActionArea>
-        <CardContent style={{ padding: 0 }}>
-          <div style={styles.cardContainer}>
-            <CardMedia
-              component="img"
-              image={eatery.image_url}
-              alt=""
-              style={styles.img}
-            />
+    <>
+      <Card
+        sx={{
+          width: 390,
+          marginBottom: "3%",
+          borderRadius: 4,
+          boxShadow: 5,
+        }}
+      >
+        <CardActionArea style={{ width: "100%" }}>
+          <CardContent style={{ padding: 0, paddingRight: 10 }}>
+            <div style={styles.cardContainer}>
+              <CardMedia
+                component="img"
+                image={eatery.image_url}
+                alt=""
+                style={styles.img}
+              />
 
-            <div style={styles.textContainer}>
-              <p style={{ marginBottom: "2%" }}>
-                {eatery.city}, {eatery.state}
-              </p>
-              <p style={styles.title}>{eatery.name}</p>
-              <div style={styles.ratingContainer}>
-                <Rating value={eatery.rating} readOnly size="small" />
-                <p style={{ color: "black" }}>({eatery.review_count})</p>
-                <p
-                  style={{
-                    marginLeft: "3%",
-                    color: "black",
-                    fontSize: 12,
-                    backgroundColor: "#ebebeb",
-                    padding: 5,
-                    borderRadius: 20,
-                  }}
-                >
-                  {eatery.price}
+              <div style={styles.textContainer}>
+                <p style={{ marginBottom: "2%" }}>
+                  {eatery.city}, {eatery.state}
                 </p>
+                <p style={styles.title}>{eatery.name}</p>
+                <div style={styles.ratingContainer}>
+                  <Rating value={eatery.rating} readOnly size="small" />
+                  <p style={{ color: "black" }}>({eatery.review_count})</p>
+                  <p
+                    style={{
+                      marginLeft: "3%",
+                      color: "black",
+                      fontSize: 12,
+                      backgroundColor: "#ebebeb",
+                      padding: 5,
+                      borderRadius: 20,
+                    }}
+                  >
+                    {eatery.price}
+                  </p>
+                </div>
+
+                <p style={statusStyle}>{status}</p>
+                <p style={styles.phone}>{eatery.phone}</p>
               </div>
-
-              <p style={statusStyle}>{status}</p>
-              <p style={styles.phone}>{eatery.phone}</p>
             </div>
-          </div>
 
-          <Tooltip title="Delete" placement="left">
-            <IconButton
-              onClick={handleDelete}
-              sx={{ position: "absolute", right: 10, bottom: 8 }}
-            >
-              <DeleteOutlineIcon />
-            </IconButton>
-          </Tooltip>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+            <Tooltip title="Delete" placement="left">
+              <IconButton
+                onClick={handleDeleteIcon}
+                sx={{ position: "absolute", right: 6, bottom: 8 }}
+              >
+                <DeleteOutlineIcon />
+              </IconButton>
+            </Tooltip>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+
+      <DeleteEatery
+        open={open}
+        setOpen={setOpen}
+        handleDelete={handleDelete}
+        alertOpen={alertOpen}
+        setAlertOpen={setAlertOpen}
+      />
+    </>
   );
 }

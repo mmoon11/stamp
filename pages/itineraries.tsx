@@ -4,22 +4,13 @@ import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "../util/firebase";
 import { useEffect, useState } from "react";
 import DisplayItineraries from "@/components/DisplayItineraries";
-
-type obj = {
-  location: string;
-  eateries: any;
-  sights: any;
-  image: string;
-  dates: any;
-};
-
-type idList = obj[] | never[];
+import { idList } from "@/types/types";
 
 export default function Itineraries() {
   const itinerariesCollectionRef = collection(db, "itineraries");
   const itinerariesQuery = query(itinerariesCollectionRef);
 
-  const [itineraries, setItineraries] = useState([]);
+  const [itineraries, setItineraries] = useState<idList>([]);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(itinerariesQuery, (querySnapshot) => {
@@ -48,7 +39,7 @@ export default function Itineraries() {
     container: {
       display: "flex",
       width: "90%",
-      flexDirection: "column",
+      flexDirection: "column" as "column",
       alignItems: "center",
     },
     title: {

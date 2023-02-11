@@ -9,7 +9,7 @@ export default function DisplayItineraries({ itineraries }: any) {
       display: "flex",
       width: "95%",
       marginTop: "5%",
-      flexWrap: "wrap",
+      flexWrap: "wrap" as "wrap",
       gap: "4%",
     },
   };

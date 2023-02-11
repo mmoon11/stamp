@@ -93,7 +93,7 @@ export default function ItemCard({ result, setSearchTerm }: any) {
   return (
     <>
       <Card
-        sx={{ width: "45%", marginBottom: "3%", borderRadius: 4, boxShadow: 5 }}
+        sx={{ width: 600, marginBottom: "3%", borderRadius: 4, boxShadow: 5 }}
       >
         <CardActionArea>
           <CardContent style={{ padding: 0 }}>
@@ -127,7 +127,7 @@ export default function ItemCard({ result, setSearchTerm }: any) {
                   </p>
                 </div>
                 <ul style={{ marginTop: "2%" }}>
-                  {result.categories.map((category, index) => (
+                  {result.categories.map((category, index: number) => (
                     <Chip
                       key={index}
                       label={category.title}

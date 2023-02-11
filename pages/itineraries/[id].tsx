@@ -1,23 +1,15 @@
 import Head from "next/head";
-import Navbar from "@/components/Navbar";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import IEateryCard from "@/components/IEateryCard";
-import {
-  collection,
-  query,
-  onSnapshot,
-  doc,
-  getDoc,
-  DocumentData,
-} from "firebase/firestore";
+import { collection, doc, getDoc, DocumentData } from "firebase/firestore";
 import { db } from "../../util/firebase";
 import { useEffect, useState } from "react";
 import { Divider } from "@mui/material";
+import { Eatery } from "@/types/types";
 
 export default function Itinerary() {
   const router = useRouter();
-
   const current = router.query;
 
   type NavLink = {
@@ -41,7 +33,9 @@ export default function Itinerary() {
   ];
 
   const dates: string[] = [];
-  current.dates ? current.dates.map((date: string) => dates.push(date)) : null;
+  current.dates && typeof current.dates !== "string"
+    ? current.dates.map((date: string) => dates.push(date))
+    : null;
 
   const styles = {
     outerContainer: {
@@ -52,7 +46,7 @@ export default function Itinerary() {
       display: "flex",
       alignItems: "center",
       width: "90%",
-      marginTop: "-7%",
+      marginTop: -90,
     },
     title: {
       fontSize: 48,
@@ -70,7 +64,7 @@ export default function Itinerary() {
       backgroundSize: "cover",
       backgroundPosition: "center",
       display: "flex",
-      flexDirection: "column",
+      flexDirection: "column" as "column",
       height: 500,
     },
     dates: {
@@ -79,7 +73,7 @@ export default function Itinerary() {
     },
     eateriesContainer: {
       display: "flex",
-      flexDirection: "column",
+      flexDirection: "column" as "column",
       width: "100%",
       gap: 20,
     },
@@ -108,7 +102,6 @@ export default function Itinerary() {
     if (eateriesDocRef) {
       const docSnap = await getDoc(eateriesDocRef);
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data().eateries);
         setEateries(docSnap.data().eateries);
       } else {
         console.log("No such document!");
@@ -133,9 +126,9 @@ export default function Itinerary() {
         <div
           style={{
             display: "flex",
-            marginTop: "2%",
+            marginTop: 30,
             marginLeft: "2%",
-            marginBottom: "3%",
+            marginBottom: 60,
           }}
         >
           <nav>
@@ -176,7 +169,7 @@ export default function Itinerary() {
               }}
             >
               {eateries
-                ? eateries.map((eatery, index) => (
+                ? eateries.map((eatery: Eatery, index: number) => (
                     <IEateryCard
                       key={index}
                       eatery={eatery}

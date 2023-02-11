@@ -22,7 +22,7 @@ export default function DisplayEateries({
     },
     listContainer: {
       display: "flex",
-      flexWrap: "wrap",
+      flexWrap: "wrap" as "wrap",
       justifyContent: "space-around",
     },
   };
@@ -30,7 +30,7 @@ export default function DisplayEateries({
   return (
     <div style={styles.container}>
       <ul style={styles.listContainer}>
-        {results.map((result, index) => (
+        {results.map((result, index: number) => (
           <ItemCard key={index} result={result} setSearchTerm={setSearchTerm} />
         ))}
       </ul>

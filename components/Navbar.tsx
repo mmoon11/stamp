@@ -37,7 +37,7 @@ const Navbar = () => {
     <Box
       sx={{
         display: "flex",
-        marginTop: "2%",
+        marginTop: 4,
         marginLeft: "2%",
         marginBottom: "3%",
       }}
