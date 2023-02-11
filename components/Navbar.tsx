@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Box, Button } from "@mui/material";
-import { setSyntheticLeadingComments } from "typescript";
+import { Box } from "@mui/material";
 
 type NavLink = {
   name: string;

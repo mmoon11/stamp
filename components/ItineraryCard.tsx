@@ -1,7 +1,7 @@
 import { Itinerary } from "@/types/types";
 import { Card, CardActionArea, CardContent } from "@mui/material";
 
-export default function ItineraryCard({ itinerary }: Itinerary) {
+export default function ItineraryCard({ itinerary }) {
   const dates: string[] = [];
   function getDates() {
     itinerary.dates.map((date: string) => dates.push(date));

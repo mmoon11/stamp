@@ -20,7 +20,7 @@ export default function Home() {
     },
     suitcases: {
       maxWidth: 500,
-      objectFit: "contain",
+      objectFit: "contain" as "contain",
       maxHeight: 700,
     },
   };

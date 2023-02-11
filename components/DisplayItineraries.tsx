@@ -16,7 +16,7 @@ export default function DisplayItineraries({ itineraries }: any) {
 
   return (
     <div style={styles.container}>
-      {itineraries.map((itinerary: any, index: string) => (
+      {itineraries.map((itinerary: any, index: number) => (
         <Link
           key={index}
           href={{

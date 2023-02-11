@@ -1,14 +1,10 @@
 import ItemCard from "./ItemCard";
 import { SetStateAction } from "react";
+import { Result, Results } from "@/types/types";
 
 type InputProps = {
-  results: any;
+  results: Results;
   setSearchTerm: React.Dispatch<SetStateAction<string>>;
-};
-
-type MapInputProps = {
-  result: any;
-  index: number;
 };
 
 export default function DisplayEateries({
@@ -30,7 +26,7 @@ export default function DisplayEateries({
   return (
     <div style={styles.container}>
       <ul style={styles.listContainer}>
-        {results.map((result, index: number) => (
+        {results.map((result: Result, index: number) => (
           <ItemCard key={index} result={result} setSearchTerm={setSearchTerm} />
         ))}
       </ul>

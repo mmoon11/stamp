@@ -16,12 +16,12 @@ import { SetStateAction, useEffect, useState } from "react";
 import { collection, query, onSnapshot, doc } from "firebase/firestore";
 import { db } from "../util/firebase";
 import { updateDoc, arrayUnion } from "firebase/firestore";
-import idList from "@types/types";
+import { Result, idList } from "@/types/types";
 
 type InputProps = {
   open: boolean;
   setOpen: React.Dispatch<SetStateAction<boolean>>;
-  eatery: any;
+  eatery: Result;
 };
 
 export default function AddToItinerary({ open, setOpen, eatery }: InputProps) {
@@ -30,7 +30,7 @@ export default function AddToItinerary({ open, setOpen, eatery }: InputProps) {
   const [chosenID, setChosenID] = useState("");
   const chooseRef = chosenID !== "" ? doc(db, "itineraries", chosenID) : null;
 
-  const [itineraries, setItineraries] = useState([]);
+  const [itineraries, setItineraries] = useState<idList>([]);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(itinerariesQuery, (querySnapshot) => {
@@ -76,9 +76,11 @@ export default function AddToItinerary({ open, setOpen, eatery }: InputProps) {
 
   const handleAdd = async () => {
     setOpen(false);
-    await updateDoc(chooseRef, {
-      eateries: arrayUnion(objectToAdd),
-    });
+    chooseRef
+      ? await updateDoc(chooseRef, {
+          eateries: arrayUnion(objectToAdd),
+        })
+      : null;
     setAlertOpen(true);
   };
 

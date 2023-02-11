@@ -6,19 +6,14 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
   Snackbar,
 } from "@mui/material";
-import { SetStateAction } from "react";
+import { MouseEventHandler, SetStateAction } from "react";
 
 type InputProps = {
   open: boolean;
   setOpen: React.Dispatch<SetStateAction<boolean>>;
-  handleDelete: any;
+  handleDelete: MouseEventHandler<HTMLButtonElement>;
   alertOpen: boolean;
   setAlertOpen: React.Dispatch<SetStateAction<boolean>>;
 };

@@ -1,7 +1,6 @@
-import React, { SetStateAction, useState } from "react";
+import React, { MouseEventHandler, SetStateAction } from "react";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import MapIcon from "@mui/icons-material/Map";
@@ -13,7 +12,7 @@ type InputProps = {
   setSearchTerm: React.Dispatch<SetStateAction<string>>;
   location: string;
   setLocation: React.Dispatch<SetStateAction<string>>;
-  onSubmit: any;
+  onSubmit: MouseEventHandler<HTMLButtonElement>;
 };
 
 export default function EateriesSearch({
@@ -23,11 +22,6 @@ export default function EateriesSearch({
   setLocation,
   onSubmit,
 }: InputProps) {
-  const defaultProps = {
-    options: ["1", "2"],
-    getOptionLabel: (option: string) => option,
-  };
-
   const styles = {
     width: {
       display: "flex",

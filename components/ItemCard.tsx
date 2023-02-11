@@ -13,6 +13,7 @@ import AddIcon from "@mui/icons-material/Add";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { useState } from "react";
 import AddToItinerary from "./AddToItinerary";
+import { Category } from "@/types/types";
 
 export default function ItemCard({ result, setSearchTerm }: any) {
   //set status of restaurant
@@ -127,22 +128,24 @@ export default function ItemCard({ result, setSearchTerm }: any) {
                   </p>
                 </div>
                 <ul style={{ marginTop: "2%" }}>
-                  {result.categories.map((category, index: number) => (
-                    <Chip
-                      key={index}
-                      label={category.title}
-                      size="small"
-                      style={{
-                        fontSize: 12,
-                        fontFamily: "Optima, serif",
-                        marginRight: "2%",
-                        marginTop: "2%",
-                      }}
-                      onClick={() => {
-                        setSearchTerm(category.title);
-                      }}
-                    />
-                  ))}
+                  {result.categories.map(
+                    (category: Category, index: number) => (
+                      <Chip
+                        key={index}
+                        label={category.title}
+                        size="small"
+                        style={{
+                          fontSize: 12,
+                          fontFamily: "Optima, serif",
+                          marginRight: "2%",
+                          marginTop: "2%",
+                        }}
+                        onClick={() => {
+                          setSearchTerm(category.title);
+                        }}
+                      />
+                    )
+                  )}
                 </ul>
                 <p style={statusStyle}>{status}</p>
                 <p style={styles.phone}>{result.phone}</p>

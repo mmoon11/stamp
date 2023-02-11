@@ -80,20 +80,6 @@ export default function IEateryCard({ eatery, docToUpdate }: any) {
   // set status style
   const statusStyle = eatery.is_closed ? styles.closed : styles.open;
 
-  // actions for speed dial
-  const actions = [
-    {
-      name: "Save to itinerary",
-      icon: <AddIcon />,
-      operation: "itinerary",
-    },
-    {
-      name: "Save for later",
-      icon: <BookmarkBorderIcon />,
-      operation: "save",
-    },
-  ];
-
   return (
     <>
       <Card

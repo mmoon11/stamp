@@ -48,7 +48,7 @@ export default function Eateries() {
     container: {
       display: "flex",
       width: "90%",
-      flexDirection: "column",
+      flexDirection: "column" as "column",
       alignItems: "center",
     },
     title: {
@@ -76,11 +76,7 @@ export default function Eateries() {
             setLocation={setLocation}
             onSubmit={searchApi}
           />
-          <DisplayEateries
-            results={results}
-            setSearchTerm={setSearchTerm}
-            searchApi={searchApi}
-          />
+          <DisplayEateries results={results} setSearchTerm={setSearchTerm} />
         </div>
       </div>
     </>
