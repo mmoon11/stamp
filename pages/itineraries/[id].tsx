@@ -143,7 +143,7 @@ export default function Itinerary() {
           style={{ display: "flex", flexDirection: "column", marginLeft: "5%" }}
         >
           <p style={styles.title}>{current.location}</p>
-          {dates.length > 0 ? (
+          {dates.length > 0 && dates[0] && dates[1] ? (
             <p style={styles.dates}>
               {dates[0]} - {dates[1]}
             </p>

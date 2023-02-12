@@ -49,7 +49,7 @@ export default function ItineraryCard({ itinerary }) {
         >
           <div style={styles.infoContainer}>
             <p style={styles.title}>{itinerary.location}</p>
-            {dates.length > 0 ? (
+            {dates.length > 0 && dates[0] !== "" && dates[1] !== "" ? (
               <p style={styles.dates}>
                 {dates[0]} - {dates[1]}
               </p>

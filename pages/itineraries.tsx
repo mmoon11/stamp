@@ -101,6 +101,7 @@ export default function Itineraries() {
         open={open}
         setOpen={setOpen}
         handleClose={handleClose}
+        collection={itinerariesCollectionRef}
       />
     </>
   );

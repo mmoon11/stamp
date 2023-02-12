@@ -11,6 +11,7 @@ export default function DisplayItineraries({ itineraries }: any) {
       marginTop: "5%",
       flexWrap: "wrap" as "wrap",
       gap: "4%",
+      paddingBottom: 80,
     },
   };
 
