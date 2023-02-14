@@ -17,6 +17,8 @@ import { collection, query, onSnapshot, doc } from "firebase/firestore";
 import { db } from "../util/firebase";
 import { updateDoc, arrayUnion } from "firebase/firestore";
 import { Result, idList } from "@/types/types";
+import AddIcon from "@mui/icons-material/Add";
+import AddNewItinerary from "./AddNewItinerary";
 
 type InputProps = {
   open: boolean;
@@ -31,6 +33,8 @@ export default function AddToItinerary({ open, setOpen, eatery }: InputProps) {
   const chooseRef = chosenID !== "" ? doc(db, "itineraries", chosenID) : null;
 
   const [itineraries, setItineraries] = useState<idList>([]);
+
+  const [openNewItinerary, setOpenNewItinerary] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(itinerariesQuery, (querySnapshot) => {
@@ -90,6 +94,10 @@ export default function AddToItinerary({ open, setOpen, eatery }: InputProps) {
     setAlertOpen(false);
   };
 
+  function addNewItinerary() {
+    setOpenNewItinerary(true);
+  }
+
   return (
     <>
       <Dialog open={open} onClose={handleCancel}>
@@ -99,22 +107,44 @@ export default function AddToItinerary({ open, setOpen, eatery }: InputProps) {
         <DialogContent>
           <div>
             <FormControl fullWidth variant="standard">
-              <InputLabel>Itinerary</InputLabel>
+              <InputLabel>
+                <p>Itinerary</p>
+              </InputLabel>
               <Select value={chosenID} onChange={handleSelect}>
                 {itineraries.map((itinerary, index) => (
                   <MenuItem key={index} value={itinerary.id}>
-                    {itinerary.location}
+                    <p>{itinerary.location}</p>
                   </MenuItem>
                 ))}
+                <MenuItem onClick={addNewItinerary}>
+                  <AddIcon
+                    fontSize="small"
+                    sx={{ color: "#557A95", marginRight: "2px" }}
+                  />
+                  <p>Add new itinerary</p>
+                </MenuItem>
               </Select>
             </FormControl>
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCancel}>Cancel</Button>
-          <Button onClick={handleAdd}>Add</Button>
+          <Button onClick={handleCancel}>
+            <p>Cancel</p>
+          </Button>
+          <Button onClick={handleAdd} sx={{ backgroundColor: "#557A95" }}>
+            <p style={{ color: "white" }}>Add</p>
+          </Button>
         </DialogActions>
       </Dialog>
+
+      <AddNewItinerary
+        open={openNewItinerary}
+        setOpen={setOpenNewItinerary}
+        handleClose={() => {
+          setOpenNewItinerary(false);
+        }}
+        collection={itinerariesCollectionRef}
+      />
 
       <Snackbar
         open={alertOpen}

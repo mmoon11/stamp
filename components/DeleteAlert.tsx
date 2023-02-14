@@ -18,7 +18,7 @@ type InputProps = {
   setAlertOpen: React.Dispatch<SetStateAction<boolean>>;
 };
 
-export default function DeleteEatery({
+export default function DeleteAlert({
   open,
   setOpen,
   handleDelete,
@@ -37,7 +37,7 @@ export default function DeleteEatery({
     <>
       <Dialog open={open} onClick={handleClose}>
         <DialogTitle>
-          <p style={{ color: "black" }}>Delete eatery</p>
+          <p style={{ color: "black" }}>Delete Item</p>
         </DialogTitle>
         <DialogContent>
           <DialogContentText>

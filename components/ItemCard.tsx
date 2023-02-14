@@ -48,6 +48,7 @@ export default function ItemCard({ result, setSearchTerm }: InputProps) {
     },
     textContainer: {
       paddingLeft: 20,
+      width: 300,
     },
     title: {
       fontSize: 24,
@@ -59,7 +60,6 @@ export default function ItemCard({ result, setSearchTerm }: InputProps) {
       display: "flex",
       alignItems: "center",
       gap: "3%",
-      width: 300,
     },
     chipsContainer: {
       display: "flex",

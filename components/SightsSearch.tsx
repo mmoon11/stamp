@@ -67,8 +67,6 @@ export default function SightsSearch({ results, setResults }) {
       });
   };
 
-  const getImage = () => {};
-
   const config = {
     method: "get",
     url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json",

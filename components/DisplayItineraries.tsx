@@ -1,4 +1,3 @@
-import Link from "next/link";
 import ItineraryCard from "./ItineraryCard";
 
 export default function DisplayItineraries({ itineraries, collection }: any) {
@@ -18,15 +17,15 @@ export default function DisplayItineraries({ itineraries, collection }: any) {
   return (
     <div style={styles.container}>
       {itineraries.map((itinerary: any, index: number) => (
-        <Link
+        <ItineraryCard
           key={index}
+          itinerary={itinerary}
+          collection={collection}
           href={{
             pathname: ROUTE_POST_ID,
             query: itinerary,
           }}
-        >
-          <ItineraryCard itinerary={itinerary} collection={collection} />
-        </Link>
+        />
       ))}
     </div>
   );

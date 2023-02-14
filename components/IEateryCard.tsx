@@ -21,8 +21,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../util/firebase";
 import { useState } from "react";
-import DeleteEatery from "./DeleteEatery";
 import { Eatery } from "@/types/types";
+import DeleteAlert from "./DeleteAlert";
 
 type InputProps = {
   eatery: Eatery;
@@ -152,7 +152,7 @@ export default function IEateryCard({ eatery, docToUpdate }: InputProps) {
         </CardActionArea>
       </Card>
 
-      <DeleteEatery
+      <DeleteAlert
         open={open}
         setOpen={setOpen}
         handleDelete={handleDelete}

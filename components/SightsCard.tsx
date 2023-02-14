@@ -5,20 +5,32 @@ import {
   CardMedia,
   Rating,
 } from "@mui/material";
+import { useState } from "react";
 
 export default function SightsCard({ result }) {
   const photoReference = result.photos[0];
+  const axios = require("axios");
+  const [thumbnail, setThumbnail] = useState();
 
   const imageConfig = {
     method: "get",
     url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo",
     params: {
-      photo_reference: null,
+      photo_reference: photoReference,
       key: "AIzaSyCC1OsgmQaL3R0m-WHduyMClHQP4lycayA",
     },
   };
 
-  console.log(photoReference);
+  const getImage = () => {
+    axios(imageConfig)
+      .then(function (response) {
+        setThumbnail(response);
+        console.log(thumbnail);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const styles = {
     img: {
