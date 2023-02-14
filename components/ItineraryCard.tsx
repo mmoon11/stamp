@@ -1,12 +1,23 @@
 import { Itinerary } from "@/types/types";
-import { Card, CardActionArea, CardContent } from "@mui/material";
+import { Card, CardActionArea, CardContent, IconButton } from "@mui/material";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "@/util/firebase";
 
-export default function ItineraryCard({ itinerary }) {
+export default function ItineraryCard({ itinerary, collection }) {
   const dates: string[] = [];
   function getDates() {
     itinerary.dates.map((date: string) => dates.push(date));
   }
   itinerary.dates ? getDates() : null;
+
+  const itineraryID = itinerary.id;
+
+  const currentItinerary = doc(db, "itineraries", itineraryID);
+
+  const handleDeleteItinary = async () => {
+    await deleteDoc(currentItinerary);
+  };
 
   const styles = {
     title: {
@@ -55,8 +66,22 @@ export default function ItineraryCard({ itinerary }) {
               </p>
             ) : null}
           </div>
+          <IconButton
+            onClick={handleDeleteItinary}
+            size="small"
+            sx={{
+              position: "absolute",
+              top: 12,
+              right: 12,
+              backgroundColor: "rgb(72,75,74, 0.2)",
+            }}
+          >
+            <DeleteOutlineIcon sx={{ fontSize: 22, color: "white" }} />
+          </IconButton>
         </CardContent>
       </CardActionArea>
     </Card>
   );
 }
+
+// FIX HOW THE NAVIGATION GOES TO THE ACTUAL CARD CONTENT AFTER DELETING

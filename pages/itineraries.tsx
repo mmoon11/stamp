@@ -93,7 +93,10 @@ export default function Itineraries() {
             </Button>
           </div>
 
-          <DisplayItineraries itineraries={itineraries} />
+          <DisplayItineraries
+            itineraries={itineraries}
+            collection={itinerariesCollectionRef}
+          />
         </div>
       </div>
 

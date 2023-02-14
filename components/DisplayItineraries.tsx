@@ -1,7 +1,7 @@
 import Link from "next/link";
 import ItineraryCard from "./ItineraryCard";
 
-export default function DisplayItineraries({ itineraries }: any) {
+export default function DisplayItineraries({ itineraries, collection }: any) {
   const ROUTE_POST_ID = "itineraries/[id]";
 
   const styles = {
@@ -25,7 +25,7 @@ export default function DisplayItineraries({ itineraries }: any) {
             query: itinerary,
           }}
         >
-          <ItineraryCard itinerary={itinerary} />
+          <ItineraryCard itinerary={itinerary} collection={collection} />
         </Link>
       ))}
     </div>

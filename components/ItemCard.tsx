@@ -59,6 +59,7 @@ export default function ItemCard({ result, setSearchTerm }: InputProps) {
       display: "flex",
       alignItems: "center",
       gap: "3%",
+      width: 300,
     },
     chipsContainer: {
       display: "flex",

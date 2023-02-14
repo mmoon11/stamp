@@ -6,8 +6,8 @@ import axios from "axios";
 import DisplayEateries from "@/components/DisplayEateries";
 
 export default function Eateries() {
-  const [searchTerm, setSearchTerm] = useState("ramen");
-  const [location, setLocation] = useState("nyc");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [location, setLocation] = useState("");
   const [results, setResults] = useState([]);
   // add a sort by param!
 
