@@ -1,26 +1,32 @@
+import { Result, Results } from "@/types/types";
 import { useEffect, useState } from "react";
+import ItemCard from "./ItemCard";
 import SightsCard from "./SightsCard";
 
-export default function DisplaySights({ results }) {
-  const [resultsArray, setResultsArray] = useState([]);
+type InputProps = {
+  results: Results;
+};
 
-  function compare(a, b) {
-    if (a.user_ratings_total < b.user_ratings_total) {
-      return 1;
-    }
-    if (a.user_ratings_total > b.user_ratings_total) {
-      return -1;
-    }
-    return 0;
-  }
+export default function DisplaySights({ results }: InputProps) {
+  // const [resultsArray, setResultsArray] = useState([]);
 
-  useEffect(() => {
-    if (results) {
-      const temp = JSON.parse(results).results;
-      temp.sort(compare);
-      setResultsArray(temp);
-    }
-  }, [results]);
+  // function compare(a, b) {
+  //   if (a.user_ratings_total < b.user_ratings_total) {
+  //     return 1;
+  //   }
+  //   if (a.user_ratings_total > b.user_ratings_total) {
+  //     return -1;
+  //   }
+  //   return 0;
+  // }
+
+  // useEffect(() => {
+  //   if (results) {
+  //     const temp = JSON.parse(results).results;
+  //     temp.sort(compare);
+  //     setResultsArray(temp);
+  //   }
+  // }, [results]);
 
   const styles = {
     listContainer: {
@@ -32,8 +38,8 @@ export default function DisplaySights({ results }) {
 
   return (
     <div style={styles.listContainer}>
-      {resultsArray.map((result, index: number) => (
-        <SightsCard key={index} result={result} />
+      {results.map((result: Result, index: number) => (
+        <ItemCard key={index} result={result} type="sight" />
       ))}
     </div>
   );

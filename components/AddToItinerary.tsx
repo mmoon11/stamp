@@ -24,9 +24,15 @@ type InputProps = {
   open: boolean;
   setOpen: React.Dispatch<SetStateAction<boolean>>;
   eatery: Result;
+  type: string;
 };
 
-export default function AddToItinerary({ open, setOpen, eatery }: InputProps) {
+export default function AddToItinerary({
+  open,
+  setOpen,
+  eatery,
+  type,
+}: InputProps) {
   const itinerariesCollectionRef = collection(db, "itineraries");
   const itinerariesQuery = query(itinerariesCollectionRef);
   const [chosenID, setChosenID] = useState("");
@@ -80,11 +86,21 @@ export default function AddToItinerary({ open, setOpen, eatery }: InputProps) {
 
   const handleAdd = async () => {
     setOpen(false);
-    chooseRef
-      ? await updateDoc(chooseRef, {
+    if (chooseRef) {
+      if (type === "eatery") {
+        await updateDoc(chooseRef, {
           eateries: arrayUnion(objectToAdd),
-        })
-      : null;
+        });
+      } else if (type === "sight") {
+        console.log(objectToAdd);
+        objectToAdd !== undefined
+          ? await updateDoc(chooseRef, {
+              sights: arrayUnion(objectToAdd),
+            })
+          : null;
+      }
+    }
+
     setAlertOpen(true);
   };
 

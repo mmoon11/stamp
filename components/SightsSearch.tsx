@@ -1,96 +1,94 @@
-import {
-  Button,
-  InputBase,
-  Paper,
-  Divider,
-  Select,
-  SelectChangeEvent,
-  InputLabel,
-  MenuItem,
-  FormControl,
-} from "@mui/material";
-import { useState } from "react";
+import { Button, InputBase, Paper, Divider } from "@mui/material";
+import { MouseEventHandler, SetStateAction, useState } from "react";
 import PlaceIcon from "@mui/icons-material/Place";
 import SearchIcon from "@mui/icons-material/Search";
-import MapIcon from "@mui/icons-material/Map";
 
-export default function SightsSearch({ results, setResults }) {
+type InputProps = {
+  location: string;
+  setLocation: React.Dispatch<SetStateAction<string>>;
+  onSubmit: MouseEventHandler<HTMLButtonElement>;
+};
+
+export default function SightsSearch({
+  location,
+  setLocation,
+  onSubmit,
+}: InputProps) {
   // useState
-  const [searchTerm, setSearchTerm] = useState("");
-  const [type, setType] = useState("");
-  const [location, setLocation] = useState("");
-  const [placeID, setPlaceID] = useState<any>();
-  const [coordinates, setCoordinates] = useState("");
+  // const [searchTerm, setSearchTerm] = useState("");
+  // const [type, setType] = useState("");
+  // const [placeID, setPlaceID] = useState<any>();
+  // const [coordinates, setCoordinates] = useState("");
 
-  const axios = require("axios");
+  // const axios = require("axios");
 
-  const locationConfig = {
-    method: "get",
-    url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/autocomplete/json",
-    params: {
-      input: location,
-      radius: "50000",
-      types: "geocode",
-      key: "AIzaSyCC1OsgmQaL3R0m-WHduyMClHQP4lycayA",
-    },
-  };
+  // const locationConfig = {
+  //   method: "get",
+  //   url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/autocomplete/json",
+  //   params: {
+  //     input: location,
+  //     radius: "50000",
+  //     types: "geocode",
+  //     key: "AIzaSyCC1OsgmQaL3R0m-WHduyMClHQP4lycayA",
+  //   },
+  // };
 
-  const getLocation = () => {
-    axios(locationConfig)
-      .then(function (response) {
-        setPlaceID(JSON.stringify(response.data.predictions[0].place_id));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  // const getLocation = () => {
+  //   axios(locationConfig)
+  //     .then(function (response) {
+  //       setPlaceID(JSON.stringify(response.data.predictions[0].place_id));
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // };
 
-  const coordinatesConfig = {
-    method: "get",
-    url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json",
-    params: {
-      // replace
-      place_id: "ChIJD7fiBh9u5kcRYJSMaMOCCwQ",
-      fields: "geometry",
-      key: "AIzaSyCC1OsgmQaL3R0m-WHduyMClHQP4lycayA",
-    },
-  };
+  // const coordinatesConfig = {
+  //   method: "get",
+  //   url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json",
+  //   params: {
+  //     // replace
+  //     place_id: "ChIJD7fiBh9u5kcRYJSMaMOCCwQ",
+  //     fields: "geometry",
+  //     key: "AIzaSyCC1OsgmQaL3R0m-WHduyMClHQP4lycayA",
+  //   },
+  // };
 
-  const getLocationCoordinates = () => {
-    axios(coordinatesConfig)
-      .then(function (response) {
-        const map = response.data.result.geometry.location;
-        setCoordinates(`${map.lat},${map.lng}`);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  // const getLocationCoordinates = () => {
+  //   axios(coordinatesConfig)
+  //     .then(function (response) {
+  //       const map = response.data.result.geometry.location;
+  //       setCoordinates(`${map.lat},${map.lng}`);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // };
 
-  const config = {
-    method: "get",
-    url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json",
-    params: {
-      keyword: searchTerm,
-      location: coordinates,
-      radius: 50000,
-      type: type,
-      key: "AIzaSyCC1OsgmQaL3R0m-WHduyMClHQP4lycayA",
-    },
-  };
+  // const config = {
+  //   method: "get",
+  //   url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+  //   params: {
+  //     keyword: searchTerm,
+  //     location: coordinates,
+  //     radius: 50000,
+  //     type: type,
+  //     key: "AIzaSyCC1OsgmQaL3R0m-WHduyMClHQP4lycayA",
+  //   },
+  // };
 
-  const searchGoogleAPI = () => {
-    getLocation();
-    getLocationCoordinates();
+  // const searchGoogleAPI = () => {
+  //   getLocation();
+  //   getLocationCoordinates();
 
-    axios(config)
-      .then(function (response) {
-        setResults(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  //   axios(config)
+  //     .then(function (response) {
+  //       setResults(JSON.stringify(response.data));
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // };
 
   const styles = {
     searchTermContainer: {
@@ -133,18 +131,18 @@ export default function SightsSearch({ results, setResults }) {
       <div style={styles.searchTermContainer}>
         <PlaceIcon style={styles.icon} />
         <InputBase
-          value={searchTerm}
+          value={location}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            setSearchTerm(event.target.value);
+            setLocation(event.target.value);
           }}
-          placeholder="Search"
+          placeholder="Search location"
           style={{ fontFamily: "Optima, serif", fontSize: 20, width: "100%" }}
         />
       </div>
 
-      <Divider orientation="vertical" flexItem />
+      {/* <Divider orientation="vertical" flexItem /> */}
 
-      <div style={styles.typeInputContainer}>
+      {/* <div style={styles.typeInputContainer}>
         <FormControl
           sx={{
             width: "100%",
@@ -182,11 +180,11 @@ export default function SightsSearch({ results, setResults }) {
             </MenuItem>
           </Select>
         </FormControl>
-      </div>
+      </div> */}
 
-      <Divider orientation="vertical" flexItem />
+      {/* <Divider orientation="vertical" flexItem /> */}
 
-      <div style={styles.locationContainer}>
+      {/* <div style={styles.locationContainer}>
         <MapIcon style={styles.icon} />
         <InputBase
           value={location}
@@ -196,10 +194,10 @@ export default function SightsSearch({ results, setResults }) {
           placeholder="Location"
           style={{ fontFamily: "Optima, serif", fontSize: 20 }}
         />
-      </div>
+      </div> */}
 
       <Button
-        onClick={searchGoogleAPI}
+        onClick={onSubmit}
         endIcon={<SearchIcon />}
         sx={{
           color: "#f7f2e9",

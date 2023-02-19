@@ -5,31 +5,51 @@ import {
   CardMedia,
   Rating,
 } from "@mui/material";
+import { Category, Result } from "@/types/types";
 import { useState } from "react";
+import AddIcon from "@mui/icons-material/Add";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
-export default function SightsCard({ result }) {
-  const photoReference = result.photos[0];
-  const axios = require("axios");
-  const [thumbnail, setThumbnail] = useState();
+type InputProps = {
+  result: Result;
+};
 
-  const imageConfig = {
-    method: "get",
-    url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo",
-    params: {
-      photo_reference: photoReference,
-      key: "AIzaSyCC1OsgmQaL3R0m-WHduyMClHQP4lycayA",
-    },
-  };
+export default function SightsCard({ result }: InputProps) {
+  // const photoReference = result.photos[0];
+  // const axios = require("axios");
+  // const [thumbnail, setThumbnail] = useState();
 
-  const getImage = () => {
-    axios(imageConfig)
-      .then(function (response) {
-        setThumbnail(response);
-        console.log(thumbnail);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  // const imageConfig = {
+  //   method: "get",
+  //   url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo",
+  //   params: {
+  //     photo_reference: photoReference,
+  //     key: "AIzaSyCC1OsgmQaL3R0m-WHduyMClHQP4lycayA",
+  //   },
+  // };
+
+  // const getImage = () => {
+  //   axios(imageConfig)
+  //     .then(function (response) {
+  //       setThumbnail(response);
+  //       console.log(thumbnail);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // };
+
+  const status = result.is_closed ? "Closed" : "Open";
+
+  const [open, setOpen] = useState(false);
+
+  // add button
+  const handleAdd = function (operation: string) {
+    if (operation === "itinerary") {
+      setOpen(true);
+    } else if (operation === "save") {
+      console.log("just saved!");
+    }
   };
 
   const styles = {
@@ -52,7 +72,34 @@ export default function SightsCard({ result }) {
       alignItems: "center",
       gap: "3%",
     },
+    closed: {
+      color: "red",
+      marginTop: "5%",
+      fontSize: 18,
+    },
+    open: {
+      color: "green",
+      marginTop: "5%",
+      fontSize: 18,
+    },
   };
+
+  // set status style
+  const statusStyle = result.is_closed ? styles.closed : styles.open;
+
+  // actions for speed dial
+  const actions = [
+    {
+      name: "Save to itinerary",
+      icon: <AddIcon />,
+      operation: "itinerary",
+    },
+    {
+      name: "Save for later",
+      icon: <BookmarkBorderIcon />,
+      operation: "save",
+    },
+  ];
 
   return (
     <Card

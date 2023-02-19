@@ -17,10 +17,11 @@ import { Category, Result } from "@/types/types";
 
 type InputProps = {
   result: Result;
-  setSearchTerm: React.Dispatch<SetStateAction<string>>;
+  setSearchTerm?: React.Dispatch<SetStateAction<string>>;
+  type: string;
 };
 
-export default function ItemCard({ result, setSearchTerm }: InputProps) {
+export default function ItemCard({ result, setSearchTerm, type }: InputProps) {
   //set status of restaurant
   const status = result.is_closed ? "Closed" : "Open";
 
@@ -30,7 +31,6 @@ export default function ItemCard({ result, setSearchTerm }: InputProps) {
   const handleAdd = function (operation: string) {
     if (operation === "itinerary") {
       setOpen(true);
-      console.log(open);
     } else if (operation === "save") {
       console.log("just saved!");
     }
@@ -120,39 +120,45 @@ export default function ItemCard({ result, setSearchTerm }: InputProps) {
                 <div style={styles.ratingContainer}>
                   <Rating value={result.rating} readOnly />
                   <p style={{ color: "black" }}>({result.review_count})</p>
-                  <p
-                    style={{
-                      marginLeft: "3%",
-                      color: "black",
-                      fontSize: 14,
-                      backgroundColor: "#ebebeb",
-                      padding: 5,
-                      borderRadius: 20,
-                    }}
-                  >
-                    {result.price}
-                  </p>
+                  {type === "eatery" ? (
+                    <p
+                      style={{
+                        marginLeft: "3%",
+                        color: "black",
+                        fontSize: 14,
+                        backgroundColor: "#ebebeb",
+                        padding: 5,
+                        borderRadius: 20,
+                      }}
+                    >
+                      {result.price}
+                    </p>
+                  ) : null}
                 </div>
-                <ul style={{ marginTop: "2%" }}>
-                  {result.categories.map(
-                    (category: Category, index: number) => (
-                      <Chip
-                        key={index}
-                        label={category.title}
-                        size="small"
-                        style={{
-                          fontSize: 12,
-                          fontFamily: "Optima, serif",
-                          marginRight: "2%",
-                          marginTop: "2%",
-                        }}
-                        onClick={() => {
-                          setSearchTerm(category.title);
-                        }}
-                      />
-                    )
-                  )}
-                </ul>
+                {type === "eatery" ? (
+                  <ul style={{ marginTop: "2%" }}>
+                    {result.categories.map(
+                      (category: Category, index: number) => (
+                        <Chip
+                          key={index}
+                          label={category.title}
+                          size="small"
+                          style={{
+                            fontSize: 12,
+                            fontFamily: "Optima, serif",
+                            marginRight: "2%",
+                            marginTop: "2%",
+                          }}
+                          onClick={() => {
+                            setSearchTerm
+                              ? setSearchTerm(category.title)
+                              : null;
+                          }}
+                        />
+                      )
+                    )}
+                  </ul>
+                ) : null}
                 <p style={statusStyle}>{status}</p>
                 <p style={styles.phone}>{result.phone}</p>
               </div>
@@ -187,7 +193,12 @@ export default function ItemCard({ result, setSearchTerm }: InputProps) {
         </CardActionArea>
       </Card>
 
-      <AddToItinerary open={open} setOpen={setOpen} eatery={result} />
+      <AddToItinerary
+        open={open}
+        setOpen={setOpen}
+        eatery={result}
+        type={type}
+      />
     </>
   );
 }

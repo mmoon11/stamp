@@ -12,10 +12,6 @@ export default function DisplayEateries({
   setSearchTerm,
 }: InputProps) {
   const styles = {
-    container: {
-      display: "flex",
-      justifyContent: "center",
-    },
     listContainer: {
       display: "flex",
       flexWrap: "wrap" as "wrap",
@@ -24,12 +20,15 @@ export default function DisplayEateries({
   };
 
   return (
-    <div style={styles.container}>
-      <ul style={styles.listContainer}>
-        {results.map((result: Result, index: number) => (
-          <ItemCard key={index} result={result} setSearchTerm={setSearchTerm} />
-        ))}
-      </ul>
+    <div style={styles.listContainer}>
+      {results.map((result: Result, index: number) => (
+        <ItemCard
+          key={index}
+          result={result}
+          setSearchTerm={setSearchTerm}
+          type="eatery"
+        />
+      ))}
     </div>
   );
 }
