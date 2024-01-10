@@ -79,7 +79,7 @@ export default function AddToItinerary({
     state: eatery.location.state,
     country: eatery.location.country,
     name: eatery.name,
-    price: eatery.price,
+    price: eatery.price !== undefined ? eatery.price : "",
     rating: eatery.rating,
     review_count: eatery.review_count,
   };
@@ -88,11 +88,13 @@ export default function AddToItinerary({
     setOpen(false);
     if (chooseRef) {
       if (type === "eatery") {
-        await updateDoc(chooseRef, {
-          eateries: arrayUnion(objectToAdd),
-        });
-      } else if (type === "sight") {
         console.log(objectToAdd);
+        objectToAdd !== undefined
+          ? await updateDoc(chooseRef, {
+              eateries: arrayUnion(objectToAdd),
+            })
+          : null;
+      } else if (type === "sight") {
         objectToAdd !== undefined
           ? await updateDoc(chooseRef, {
               sights: arrayUnion(objectToAdd),

@@ -44,9 +44,9 @@ export default function AddNewItinerary({
 
   const disabled = location == "" ? true : false;
 
-  const selectedFile = document.getElementById("itineraryImage")
-    ? document.getElementById("itineraryImage").files[0]
-    : null;
+  // const selectedFile = document.getElementById("itineraryImage")
+  //   ? document.getElementById("itineraryImage").files[0]
+  //   : null;
 
   // add itinerary
   const handleAddItinerary = async function (e: {

@@ -16,7 +16,7 @@ export default function Sights() {
         {
           headers: {
             Authorization:
-              "Bearer D6nyyyinTkA-V_iXl7ZcUIPu6jh8-Nes4VIeEAdIvWXPqgJllrul7E-11LB8M9BlfMHjreZ7oi6fPm7QkhkeuYGY0MBGVkyFwKG_j3F39xaA4ds_L-BpOnzGHWLkY3Yx",
+              "Bearer GMdgqZxxz0Fym_V-b_gV8-_tFuNUumyuqKKQXik5Agk6GSdywFJ2gICxCHC2FQ2ZvW69317VGQLYNJy0CeBU_jn9S9oUTuaYODm3ZjwAh8JKsYkfovRK_z87_jPeZHYx",
           },
           params: {
             term: "tourist attractions",

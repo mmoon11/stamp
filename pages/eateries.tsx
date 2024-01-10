@@ -1,10 +1,9 @@
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import EateriesSearch from "@/components/EateriesSearch";
 import axios from "axios";
 import DisplayEateries from "@/components/DisplayEateries";
-import Footer from "@/components/Footer";
 
 export default function Eateries() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,14 +11,14 @@ export default function Eateries() {
   const [results, setResults] = useState([]);
   // add a sort by param!
 
-  const searchApi = () => {
+  const searchApi = useCallback(() => {
     axios
       .get(
         `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search`,
         {
           headers: {
             Authorization:
-              "Bearer D6nyyyinTkA-V_iXl7ZcUIPu6jh8-Nes4VIeEAdIvWXPqgJllrul7E-11LB8M9BlfMHjreZ7oi6fPm7QkhkeuYGY0MBGVkyFwKG_j3F39xaA4ds_L-BpOnzGHWLkY3Yx",
+              "Bearer GMdgqZxxz0Fym_V-b_gV8-_tFuNUumyuqKKQXik5Agk6GSdywFJ2gICxCHC2FQ2ZvW69317VGQLYNJy0CeBU_jn9S9oUTuaYODm3ZjwAh8JKsYkfovRK_z87_jPeZHYx",
           },
           params: {
             term: searchTerm,
@@ -31,10 +30,10 @@ export default function Eateries() {
       .then((res) => {
         setResults(res.data.businesses);
       })
-      .catch((err) => {
+      .catch(() => {
         console.log("error");
       });
-  };
+  }, [location, searchTerm]);
 
   useEffect(() => {
     searchApi;
@@ -80,7 +79,6 @@ export default function Eateries() {
           />
           <DisplayEateries results={results} setSearchTerm={setSearchTerm} />
         </div>
-        <Footer />
       </div>
     </>
   );
